@@ -29,15 +29,15 @@ public class Personnage
 	{
 		this.nom = nom ;
 		
-		if (niveau > 0 && niveau < 99)
+		if (niveau >= 0 && niveau < 99)
 			this.niveau = niveau ;
 		else
 			this.niveau = 1 ;
-		
-			this.initiative = initiative ;
-			this.attaque = attaque ;
-			this.defense = defense ;
-			this.observation = observation ;
+
+		this.initiative = initiative ;
+		this.attaque = attaque ;
+		this.defense = defense ;
+		this.observation = observation ;
 	}
 	
 	// ------------------------- //
