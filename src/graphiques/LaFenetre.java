@@ -149,7 +149,7 @@ public class LaFenetre extends JFrame
 	}
 
 	/*
-	 * Donne l'état de la checkbox pour les jets ouverts du D100
+	 * Donne l'ï¿½tat de la checkbox pour les jets ouverts du D100
 	 */
 	public boolean getJetOuvert()
 	{
@@ -157,7 +157,7 @@ public class LaFenetre extends JFrame
 	}
 	
 	/*
-	 * Retourne le nombre de personnages enregistrés
+	 * Retourne le nombre de personnages enregistrï¿½s
 	 */
 	public int getNombrePerso()
 	{
@@ -176,7 +176,7 @@ public class LaFenetre extends JFrame
 	}
 	
 	/*
-	 * Retourne la liste des noms enregistrés
+	 * Retourne la liste des noms enregistrï¿½s
 	 */
 	public String[] getListeNomSauve()
 	{
@@ -184,7 +184,7 @@ public class LaFenetre extends JFrame
 	}
 	
 	/*
-	 * Méthode qui retourne le nom actuellement sélectionné dans menuDeroulant
+	 * Methode qui retourne le nom actuellement selectionne dans menuDeroulant
 	 */
 	public String getNomListeSelection()
 	{
@@ -224,7 +224,7 @@ public class LaFenetre extends JFrame
 	
 	/**
 	 * Constructeur de la classe LaFenetre.
-	 * Créer la fenetre et tous ses composants.
+	 * Crï¿½er la fenetre et tous ses composants.
 	 */
 	public LaFenetre()
 	{
@@ -291,7 +291,7 @@ public class LaFenetre extends JFrame
 			{
 				codesCommandes code ;
 
-				// si la touche "entrée" est appuyée
+				// si la touche "entrï¿½e" est appuyï¿½e
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					code = Commandes.lireCommande(LaFenetre.this.zoneCommande.getText()) ;
@@ -372,7 +372,7 @@ public class LaFenetre extends JFrame
 		boutonCombat.addActionListener(clickCombat) ;
 		getContentPane().add(boutonCombat) ;
 		
-		// ---------- étiquettes (JLabel) ---------- //
+		// ---------- ï¿½tiquettes (JLabel) ---------- //
 		
 		JLabel etiquetteNom = new JLabel("Nom :");
 		etiquetteNom.setBounds(191, 9, 75, 26);
@@ -390,7 +390,7 @@ public class LaFenetre extends JFrame
 		etiquetteAttaque.setBounds(191, 129, 75, 26);
 		getContentPane().add(etiquetteAttaque);
 		
-		JLabel etiquetteDefense = new JLabel("Défense :");
+		JLabel etiquetteDefense = new JLabel("Dï¿½fense :");
 		etiquetteDefense.setBounds(191, 169, 75, 26);
 		getContentPane().add(etiquetteDefense);
 		

@@ -9,5 +9,7 @@ public enum codesCommandes
 	lancer_obs_all,
 	lancer_res,
 	
+	magieDebug,
+	
 	aide,
 }

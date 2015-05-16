@@ -5,10 +5,12 @@ import animaJDR.listeCompetences;
 import graphiques.codesCommandes;
 import metaProjet.Debug ;
 
+import Magie.voie;
+
 public class Commandes
 {
 	/*
-	 * Methode qui parse un String et qui retroune un code associé à la commande lue
+	 * Methode qui parse un String et qui retroune un code associe a la commande lue
 	 */
 	static public codesCommandes lireCommande(String cmd)
 	{
@@ -18,10 +20,10 @@ public class Commandes
 		// on analyse uniquement si la chaine est non-vide
 		if (cmd.length() != 0)
 		{
-			// détection de début de commande
+			// detection de debut de commande
 			if (cmd.codePointAt(0) == '/')
 			{
-				Debug.afficher("commande détectée") ;
+				Debug.afficher("commande dï¿½tectï¿½e") ;
 				if (cmd.contains("init"))
 				{
 					if (cmd.contains("-all"))
@@ -47,6 +49,10 @@ public class Commandes
 				else if (cmd.contains("help"))
 				{
 					retour = codesCommandes.aide ;
+				}
+				else if (cmd.contains("magieDebug"))
+				{
+					retour = codesCommandes.magieDebug ;
 				}
 			}
 		}
@@ -102,6 +108,15 @@ public class Commandes
 				afficher += "Obs. de " + listeNom[i] + " = " ;
 				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
 				afficher += String.valueOf(personnage.tirerCompetense(listeCompetences.observation)) + "\n" ;
+			}
+		}
+		else if (code == codesCommandes.magieDebug)
+		{
+			for (int i=0; i<nombrePerso; i++)
+			{
+				voie oo = new voie(10);
+				
+				afficher += oo.getNom() + "\n" ;
 			}
 		}
 
