@@ -19,7 +19,7 @@ public class Valeurs
 	static final int malusDefParalysiePartielle = -80 ;
 	static final int malusDefParalysieTotale = -20 ;
 	
-	// Attaques visées
+	// Attaques visÃ©es
 	static final int attaqueCou = -80 ;
 	static final int attaqueTete = -60 ;
 	static final int attaqueCoude = -60 ;

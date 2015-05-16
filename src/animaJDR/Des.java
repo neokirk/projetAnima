@@ -1,18 +1,18 @@
 package animaJDR;
 
 /*
- * Classe qui permet d'effectuer des lancés de dés suivant les règles d'Anima
+ * Classe qui permet d'effectuer des lancÃ©s de dÃ©s suivant les rÃ¨gles d'Anima
  */
 public class Des
 {
 
-	// Retourne un résultat aléatoire uniforme entre 1 et 100
+	// Retourne un rÃ©sultat alÃ©atoire uniforme entre 1 et 100
 	public static int d100()
 	{
 		return (int)(Math.random()* 100)  + 1 ;
 	}
 	
-	// Retourne un résultat aléatoire uniforme entre 1 et 10
+	// Retourne un rÃ©sultat alÃ©atoire uniforme entre 1 et 10
 	public static int d10()
 	{
 		return (int)(Math.random() * 10) + 1 ;
@@ -22,7 +22,7 @@ public class Des
 	{
 		int resultat ;
 		
-		// Lancé du dés
+		// LancÃ© du dÃ©s
 		resultat = d100() ;
 		
 		// Echec critique
@@ -31,7 +31,7 @@ public class Des
 			resultat = - d100() ;
 		}
 		
-		// Réussite critique
+		// RÃ©ussite critique
 		if (ouvert == true)
 		{
 			int seuil = 90 ;
@@ -48,13 +48,13 @@ public class Des
 	}
 	
 	/*
-	 * Lance un jet de dés pour un test d'initiative
+	 * Lance un jet de dÃ©s pour un test d'initiative
 	 */
 	public static int lancerDesInitiative(boolean ouvert, int base)
 	{
 		int resultat = d100() ;
 		
-		// échec critique
+		// Echec critique
 		if (resultat == 1)
 			resultat = Valeurs.malusInit01 + base ;
 		else if (resultat == 2)
@@ -62,7 +62,7 @@ public class Des
 		else if (resultat == 3)
 			resultat = Valeurs.malusInit03 + base ;
 
-		// Réussite critique
+		// RÃ©ussite critique
 		if (ouvert == true)
 		{
 			int seuil = 90 ;
