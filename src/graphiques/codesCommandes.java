@@ -7,6 +7,7 @@ public enum codesCommandes
 	lancer_init_all,
 	lancer_obs,
 	lancer_obs_all,
+	lancer_res,
 	
 	aide,
 }
