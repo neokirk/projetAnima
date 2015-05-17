@@ -1,17 +1,20 @@
 package animaJDR;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import animaJDR.Personnage;
 
-public class GestionnairePersonnage
+public class GestionnairePersonnage implements Serializable
 {
 	
 	////////////////////////////////////////////////
 	/////////////// ATTRIBUTS //////////////////////
 	////////////////////////////////////////////////	
 	
+	
+	private static final long serialVersionUID = 42 ;
 	private ArrayList<Personnage> listePersonnages ;
 	
 	

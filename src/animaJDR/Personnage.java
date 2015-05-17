@@ -1,7 +1,11 @@
 package animaJDR;
 
-public class Personnage
+import java.io.Serializable;
+
+public class Personnage implements Serializable
 {
+	private static final long serialVersionUID = 256;
+	
 	private String nom ;
 	private int niveau ;
 	private int initiative ;

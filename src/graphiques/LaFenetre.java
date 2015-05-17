@@ -22,6 +22,7 @@ import javax.swing.SwingConstants;
 import animaJDR.Des;
 import animaJDR.GestionnairePersonnage;
 import animaJDR.Personnage;
+import graphiques.Sauvegarde;
 
 
 public class LaFenetre extends JFrame
@@ -114,6 +115,7 @@ public class LaFenetre extends JFrame
 		listePerso.ajouterPersonnage(perso) ;
 		menuDeroulant.addItem(perso.getNom());
 		menuDeroulant.setSelectedItem(perso.getNom());
+		Sauvegarde.sauvegarder(listePerso) ;
 	}
 	
 	/*
@@ -127,6 +129,7 @@ public class LaFenetre extends JFrame
 			menuDeroulant.removeItem(nom) ;
 			listePerso.supprimerPersonnage(nom) ;
 			afficherPersonnage((String)menuDeroulant.getSelectedItem());
+			Sauvegarde.sauvegarder(listePerso) ;
 		}
 	}
 	
@@ -149,7 +152,7 @@ public class LaFenetre extends JFrame
 	}
 
 	/*
-	 * Donne l'ï¿½tat de la checkbox pour les jets ouverts du D100
+	 * Donne l'etat de la checkbox pour les jets ouverts du D100
 	 */
 	public boolean getJetOuvert()
 	{
@@ -157,7 +160,7 @@ public class LaFenetre extends JFrame
 	}
 	
 	/*
-	 * Retourne le nombre de personnages enregistrï¿½s
+	 * Retourne le nombre de personnages enregistres
 	 */
 	public int getNombrePerso()
 	{
@@ -176,7 +179,7 @@ public class LaFenetre extends JFrame
 	}
 	
 	/*
-	 * Retourne la liste des noms enregistrï¿½s
+	 * Retourne la liste des noms enregistres
 	 */
 	public String[] getListeNomSauve()
 	{
@@ -189,6 +192,17 @@ public class LaFenetre extends JFrame
 	public String getNomListeSelection()
 	{
 		return (String)menuDeroulant.getSelectedItem() ;
+	}
+	
+	/*
+	 * Methode qui ajoute un ensemble de String au menu déroulant
+	 */
+	private void ajouterListeNomMenuDeroulant(String[] noms)
+	{
+		for (int i=0; i<getNombrePerso(); i++)
+		{
+			menuDeroulant.addItem(noms[i]) ;
+		}
 	}
 	
 	/*
@@ -232,7 +246,10 @@ public class LaFenetre extends JFrame
 		setResizable(false);
 		getContentPane().setLayout(null);
 		
-		listePerso = new GestionnairePersonnage() ;
+		listePerso = null ;
+		listePerso = Sauvegarde.charger() ;
+		if (listePerso == null)
+			listePerso = new GestionnairePersonnage() ;
 
 		// ---------- Evenements ------- //
 
@@ -390,7 +407,7 @@ public class LaFenetre extends JFrame
 		etiquetteAttaque.setBounds(191, 129, 75, 26);
 		getContentPane().add(etiquetteAttaque);
 		
-		JLabel etiquetteDefense = new JLabel("Dï¿½fense :");
+		JLabel etiquetteDefense = new JLabel("Defense :");
 		etiquetteDefense.setBounds(191, 169, 75, 26);
 		getContentPane().add(etiquetteDefense);
 		
@@ -472,5 +489,6 @@ public class LaFenetre extends JFrame
 		menuDeroulant.setBounds(10, 92, 137, 20);
 		menuDeroulant.addActionListener(clickListe) ;
 		getContentPane().add(menuDeroulant);
+		ajouterListeNomMenuDeroulant(getListeNomSauve()) ;
 	}
 }
