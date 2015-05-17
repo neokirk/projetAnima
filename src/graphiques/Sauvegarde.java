@@ -62,8 +62,12 @@ public class Sauvegarde
 		{
 			try
 			{
-				liste = (GestionnairePersonnage) streamEntree.readObject() ;
-				streamEntree.close() ;
+				if (streamEntree != null)
+				{
+					liste = (GestionnairePersonnage) streamEntree.readObject() ;
+					streamEntree.close() ;
+				}
+				
 			}
 			catch (IOException e)
 			{
@@ -75,7 +79,6 @@ public class Sauvegarde
 			}
 		}
 		
-		
-		return liste ; // TODO
+		return liste ;
 	}
 }
