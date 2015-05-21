@@ -50,7 +50,7 @@ public class Commandes
 				{
 					retour = codesCommandes.aide ;
 				}
-				else if (cmd.contains("magieDebug"))
+				else if (cmd.contains("mD"))
 				{
 					retour = codesCommandes.magieDebug ;
 				}
