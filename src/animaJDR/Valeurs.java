@@ -36,4 +36,6 @@ public class Valeurs
 	static final int attaqueOeil = -100 ;
 	static final int attaquePoignet = -40 ;
 	static final int attaqueEpaule = -30 ;
+	
+	// rien du tout
 }
