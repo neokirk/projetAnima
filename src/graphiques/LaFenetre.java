@@ -19,9 +19,12 @@ import java.awt.event.KeyListener;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
+import metaProjet.Debug;
 import animaJDR.Des;
 import animaJDR.GestionnairePersonnage;
+import animaJDR.ListeResistances;
 import animaJDR.Personnage;
+import animaJDR.Resistances;
 import graphiques.Sauvegarde;
 
 
@@ -94,6 +97,16 @@ public class LaFenetre extends JFrame
 		});
 	}
 
+	private boolean JTextFieldEstVide(JTextField texteField)
+	{
+		boolean resultat ;
+		if(texteField.getText().length() == 0)
+			resultat = true ;
+		else
+			resultat = false ;
+		
+		return resultat ;
+	}
 	
 	/*
 	 * 
@@ -108,9 +121,31 @@ public class LaFenetre extends JFrame
 	 */
 	private void ajouterPersonnage()
 	{
-		Personnage perso = new Personnage(texteNom.getText(), Integer.valueOf(texteNiveau.getText()),
-				Integer.valueOf(texteInitiative.getText()), Integer.valueOf(texteAttaque.getText()),
-				Integer.valueOf(texteDefense.getText()), Integer.valueOf(texteObservation.getText())) ;
+		Personnage perso = null ;
+		Debug.afficher(String.valueOf(JTextFieldEstVide(texteRMal)));
+		JTextFieldEstVide(texteRMys) ;
+		
+		// si les resistances sont disponibles
+		if (!JTextFieldEstVide(texteRMal) && !JTextFieldEstVide(texteRMys) && !JTextFieldEstVide(texteRPhy)
+				&& !JTextFieldEstVide(texteRPoi) && !JTextFieldEstVide(texteRPsy))
+		{
+			// creation de l'objet resistances
+			Resistances res = new Resistances( Integer.valueOf(texteRPhy.getText()), Integer.valueOf(texteRMal.getText()),
+					Integer.valueOf(texteRPoi.getText()), Integer.valueOf(texteRPsy.getText()), Integer.valueOf(texteRMys.getText()) ) ;
+			
+			// creation du personnage avec resistances
+			perso = new Personnage(texteNom.getText(), Integer.valueOf(texteNiveau.getText()),
+					Integer.valueOf(texteInitiative.getText()), Integer.valueOf(texteAttaque.getText()),
+					Integer.valueOf(texteDefense.getText()), Integer.valueOf(texteObservation.getText()), res) ;
+		}
+		// sinon la creation se fait de manière classique
+		else
+		{
+			// creation du personnage sans resistance
+			perso = new Personnage(texteNom.getText(), Integer.valueOf(texteNiveau.getText()),
+					Integer.valueOf(texteInitiative.getText()), Integer.valueOf(texteAttaque.getText()),
+					Integer.valueOf(texteDefense.getText()), Integer.valueOf(texteObservation.getText())) ;
+		}
 		
 		listePerso.ajouterPersonnage(perso) ;
 		menuDeroulant.addItem(perso.getNom());
@@ -141,13 +176,27 @@ public class LaFenetre extends JFrame
 		Personnage personnage = this.listePerso.getPersoParNom(nom) ;
 		if (personnage != null)
 		{
-			setTextes(nom, String.valueOf(personnage.getNiveau()), String.valueOf(personnage.getInitiative()), 
+			setTextesPrincipaux(nom, String.valueOf(personnage.getNiveau()), String.valueOf(personnage.getInitiative()), 
 					String.valueOf(personnage.getAttaque()), String.valueOf(personnage.getDefense()),
 					String.valueOf(personnage.getObservation())) ;
+			
+			if (personnage.possedeResistance())
+			{
+				setTextesResistances(String.valueOf(personnage.getResistance(ListeResistances.ResPhy)), 
+						String.valueOf(personnage.getResistance(ListeResistances.ResMal)),
+						String.valueOf(personnage.getResistance(ListeResistances.ResPoi)),
+						String.valueOf(personnage.getResistance(ListeResistances.ResPsy)),
+						String.valueOf(personnage.getResistance(ListeResistances.ResMys)));
+			}
+			else
+			{
+				setTextesResistances("", "", "", "", "") ;
+			}
 		}
 		else
 		{
-			setTextes("", "", "", "", "", "") ;
+			setTextesPrincipaux("", "", "", "", "", "") ;
+			setTextesResistances("", "", "", "", "") ;
 		}
 	}
 
@@ -224,7 +273,7 @@ public class LaFenetre extends JFrame
 	/*
 	 * Setter global pour les champs de texte
 	 */
-	public void setTextes(String nom, String niveau, String initiative, String attaque, String defense, String observation)
+	public void setTextesPrincipaux(String nom, String niveau, String initiative, String attaque, String defense, String observation)
 	{
 		texteNom.setText(nom) ;
 		texteNiveau.setText(niveau) ;
@@ -234,11 +283,23 @@ public class LaFenetre extends JFrame
 		texteObservation.setText(observation) ;
 	}
 	
+	/*
+	 * 
+	 */
+	public void setTextesResistances(String RPhy, String RMal, String RPoi, String RPsy, String RMys)
+	{
+		texteRPhy.setText(RPhy) ;
+		texteRMal.setText(RMal) ;
+		texteRPoi.setText(RPoi) ;
+		texteRPsy.setText(RPsy) ;
+		texteRMys.setText(RMys) ;
+	}
+	
 	///// --------------------------------- ///// ------------------------------------- /////
 	
 	/**
 	 * Constructeur de la classe LaFenetre.
-	 * Crï¿½er la fenetre et tous ses composants.
+	 * Creer la fenetre et tous ses composants.
 	 */
 	public LaFenetre()
 	{

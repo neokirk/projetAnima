@@ -1,10 +1,10 @@
 package graphiques;
 
+import animaJDR.ListeResistances;
 import animaJDR.Personnage;
-import animaJDR.listeCompetences;
+import animaJDR.ListeCompetences;
 import graphiques.codesCommandes;
 import metaProjet.Debug ;
-
 import Magie.voie;
 
 public class Commandes
@@ -23,7 +23,8 @@ public class Commandes
 			// detection de debut de commande
 			if (cmd.codePointAt(0) == '/')
 			{
-				Debug.afficher("commande d�tect�e") ;
+				Debug.afficher("commande detectee") ;
+				// detection d'init
 				if (cmd.contains("init"))
 				{
 					if (cmd.contains("-all"))
@@ -35,6 +36,7 @@ public class Commandes
 						retour = codesCommandes.lancer_init ;
 					}
 				}
+				// detection pour l'observation
 				else if (cmd.contains("obs"))
 				{
 					if (cmd.contains("-all"))
@@ -46,6 +48,18 @@ public class Commandes
 						retour = codesCommandes.lancer_obs ;
 					}
 				}
+				else if(cmd.contains("/res"))
+				{
+					if (cmd.contains("-all") && cmd.contains("-mys"))
+						retour = codesCommandes.lancer_res_mys_all ;
+					else if (cmd.contains("-mys"))
+						retour = codesCommandes.lancer_res_mys ;
+					else if (cmd.contains("-all") && cmd.contains("-psy"))
+						retour = codesCommandes.lancer_res_psy_all ;
+					else if (cmd.contains("-psy"))
+						retour = codesCommandes.lancer_res_psy ;
+				}
+				// detection pour l'aide
 				else if (cmd.contains("help"))
 				{
 					retour = codesCommandes.aide ;
@@ -70,56 +84,81 @@ public class Commandes
 		int nombrePerso = fenetre.getNombrePerso() ;
 		String[] listeNom = fenetre.getListeNomSauve() ;
 		
-		if (code == codesCommandes.aide)
+		switch(code)
 		{
-			afficher = "Liste des commandes :\n- /init\n- /obs\n- /help" ;
-		}
-		else if (code == codesCommandes.lancer_init)
-		{
+		case aide:
+			afficher = "Liste des commandes :\n- /init\n- /obs\n" ;
+			afficher += "- /res (opt : -phy -poi -mal -psy -mys -all)\n" ;
+			afficher += "- /help" ;
+			break;
+			
+		case lancer_init:
 			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
 			{
 				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
 				afficher += "Init. de " + personnage.getNom() + " = " ;
 				afficher += String.valueOf(personnage.tirerInitiative()) ;
 			}
-		}
-		else if (code == codesCommandes.lancer_init_all)
-		{
+			break;
+
+		case lancer_init_all:
 			for (int i=0; i<nombrePerso; i++)
 			{
 				afficher += "Init. de " + listeNom[i] + " = " ;
 				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
 				afficher += String.valueOf(personnage.tirerInitiative()) + "\n" ;
 			}
-		}
-		else if (code == codesCommandes.lancer_obs)
-		{
+			break;
+			
+		case lancer_obs:
 			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
 			{
 				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
 				afficher += "Obs. de " + personnage.getNom() + " = " ;
-				afficher += String.valueOf(personnage.tirerCompetense(listeCompetences.observation)) ;
+				afficher += String.valueOf(personnage.tirerCompetence(ListeCompetences.observation)) ;
 			}
-		}
-		else if (code == codesCommandes.lancer_obs_all)
-		{
+			break;
+			
+		case lancer_obs_all:
 			for (int i=0; i<nombrePerso; i++)
 			{
 				afficher += "Obs. de " + listeNom[i] + " = " ;
 				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
-				afficher += String.valueOf(personnage.tirerCompetense(listeCompetences.observation)) + "\n" ;
+				afficher += String.valueOf(personnage.tirerCompetence(ListeCompetences.observation)) + "\n" ;
 			}
-		}
-		else if (code == codesCommandes.magieDebug)
-		{
+			break;
+			
+		case lancer_res_mys:
+			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
+			{
+				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
+				afficher += "Res. myst de " + personnage.getNom() + " = " ;
+				afficher += String.valueOf(personnage.tirerResistance(ListeResistances.ResMys)) ;
+			}
+			break;
+			
+		case lancer_res_mys_all:
 			for (int i=0; i<nombrePerso; i++)
 			{
-				voie oo = new voie(10);
-				
+				afficher += "Res. myst de " + listeNom[i] + " = " ;
+				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
+				afficher += String.valueOf(personnage.tirerResistance(ListeResistances.ResMys)) + "\n" ;
+			}
+			break;
+			
+		case magieDebug:
+			for (int i=0; i<nombrePerso; i++)
+			{
+				voie oo = new voie(10) ;
 				afficher += oo.getNom() + "\n" ;
 			}
+			break;
+			
+		default:
+			afficher = "Code de commande inconnu\n" ;
+			break;
 		}
-
+		
 		return afficher ;
 	}
 	
