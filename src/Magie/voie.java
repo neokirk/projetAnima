@@ -2,7 +2,7 @@ package Magie;
 
 
 /*
- * Classe qui permet de determiner la voie d'un sort et ses proprietes.
+ * Classe qui permet de créer un grimoire d'une voie de magie donnée, et ses proprietes.
  */
 
 
@@ -16,17 +16,17 @@ public class voie
 	//
 	// Les termes "acces libres" et "secondaire" sont synonymes. 
 	
-	private String nom ;
-	private int id ;
-	private boolean primaire;
-	private boolean majeure ;
+	protected String nom ;
+	protected int id ;
+	protected boolean primaire;
+	protected boolean majeure ;
 	
 	
 	// ------------------------- //
 	// ----- CONSTRUCTEURS ----- //
 	// ------------------------- //
 	
-	// Celui-ci ne devrait jamais Ãªtre utilisÃ© Ã  priori
+	// Celui-ci ne devrait jamais etre utilise a  priori
 	public voie()
 	{
 		nom = "nul" ;
@@ -73,6 +73,7 @@ public class voie
 	public void setId(int id)
 	{
 		this.id = id ;
+		this.nom = convertirIdNom(id);
 		convertirIdType(id);
 	}
 	
@@ -81,7 +82,7 @@ public class voie
 	// ------------------------- //
 	
 	/*
-	 * Donne le nom Ã  partir de l'id
+	 * Donne le nom a partir de l'id
 	 */
 	private String convertirIdNom(int valeur)
 	{
@@ -151,7 +152,7 @@ public class voie
 	
 	/*
 	 * Set le type de voie (secondaire, primaire majeure ou primaire mineure) 
-	 * Ã  partir de l'id.
+	 * a partir de l'id.
 	 */
 	private void convertirIdType(int valeur)
 	{	
