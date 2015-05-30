@@ -51,7 +51,7 @@ public class Personnage implements Serializable
 		this.defense = defense ;
 		this.observation = observation ;
 		
-		// ce constructeur ne creer pas de resistances
+		// ce constructeur ne cree pas de resistance
 		this.resistances = null ;
 	}
 	
