@@ -79,8 +79,8 @@ public class FenetreCombat extends JFrame
 		texteIP.setColumns(10);
 		
 		// Etiquettes
-		JLabel etiquetteDegat = new JLabel("Dégats :");
-		etiquetteDegat.setBounds(10, 56, 46, 14);
+		JLabel etiquetteDegat = new JLabel("D\u00E9gats :");
+		etiquetteDegat.setBounds(10, 56, 50, 14);
 		contentPane.add(etiquetteDegat);
 		
 		JLabel etiquetteAttaque = new JLabel("Des :");
@@ -96,7 +96,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(etiquetteIp);
 		
 		JLabel etiquetteTouche = new JLabel("Touche :");
-		etiquetteTouche.setBounds(158, 240, 50, 14);
+		etiquetteTouche.setBounds(158, 240, 60, 14);
 		contentPane.add(etiquetteTouche);
 		
 		JLabel affichageTouche = new JLabel("-");
@@ -104,7 +104,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(affichageTouche);
 		
 		JLabel etiquetteDegBilan = new JLabel("D\u00E9gats :");
-		etiquetteDegBilan.setBounds(158, 260, 46, 14);
+		etiquetteDegBilan.setBounds(158, 260, 60, 14);
 		contentPane.add(etiquetteDegBilan);
 		
 		JLabel affichageDegat = new JLabel("-");
@@ -112,7 +112,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(affichageDegat);
 		
 		JLabel etiquetteDefBilan = new JLabel("D\u00E9fense :");
-		etiquetteDefBilan.setBounds(158, 280, 58, 14);
+		etiquetteDefBilan.setBounds(158, 280, 60, 14);
 		contentPane.add(etiquetteDefBilan);
 		
 		JLabel affichageDefense = new JLabel("-");
@@ -120,7 +120,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(affichageDefense);
 		
 		JLabel etiquetteAttBilan = new JLabel("Attaque :");
-		etiquetteAttBilan.setBounds(158, 300, 58, 14);
+		etiquetteAttBilan.setBounds(158, 300, 60, 14);
 		contentPane.add(etiquetteAttBilan);
 		
 		JLabel affichageAttaque = new JLabel("-");
@@ -129,7 +129,7 @@ public class FenetreCombat extends JFrame
 		
 		// Checkboxes
 		JCheckBox checkEffet = new JCheckBox("effet (sans dégat)");
-		checkEffet.setBounds(10, 70, 125, 23);
+		checkEffet.setBounds(10, 70, 135, 23);
 		contentPane.add(checkEffet);
 		
 		JCheckBox checkSurprise = new JCheckBox("surprise");
@@ -145,7 +145,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(checkDeDos);
 		
 		JCheckBox checkProjectile = new JCheckBox("projectile");
-		checkProjectile.setBounds(10, 150, 78, 23);
+		checkProjectile.setBounds(10, 150, 85, 23) ;
 		contentPane.add(checkProjectile);
 		
 		JCheckBox checkBouclier = new JCheckBox("bouclier");
@@ -162,18 +162,18 @@ public class FenetreCombat extends JFrame
 		contentPane.add(rondEsquive);
 		
 		JRadioButton rondBoucl = new JRadioButton("bouclier surnaturel");
-		rondBoucl.setBounds(287, 130, 150, 23);
+		rondBoucl.setBounds(287, 130, 160, 23);
 		contentPane.add(rondBoucl);
 		
 		JRadioButton rondTir = new JRadioButton("tir\u00E9");
 		rondTir.setSelected(true);
 		rondTir.setEnabled(false);
-		rondTir.setBounds(85, 150, 109, 23);
+		rondTir.setBounds(90, 150, 109, 23);
 		contentPane.add(rondTir);
 		
 		JRadioButton rondLance = new JRadioButton("lanc\u00E9");
 		rondLance.setEnabled(false);
-		rondLance.setBounds(85, 170, 109, 23);
+		rondLance.setBounds(90, 170, 109, 23);
 		contentPane.add(rondLance);
 		
 		// boutons
