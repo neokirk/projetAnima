@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 
-import metaProjet.Debug;
 import animaJDR.Des;
 import animaJDR.Valeurs;
 
@@ -25,14 +24,15 @@ public class FenetreCombat extends JFrame
 	private ActionListener listenerRond ;
 	private ActionListener listenerBoutons ;
 	
-	private JComboBox<String> attaquant ;
-	private JComboBox<String> defenseur ;
+	private JComboBox attaquant ;
+	private JComboBox defenseur ;
 	private JTextField texteDegat;
 	private JTextField texteAtt;
 	private JTextField texteDef;
 	private JButton lancerAtt ;
 	private JButton lancerDef ;
 	private JButton fightBouton ;
+	private JTextField texteIP;
 
 	/**
 	 * Constructeur de la fenetre
@@ -44,18 +44,18 @@ public class FenetreCombat extends JFrame
 		setResizable(false);
 		
 		// Fenetre
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
 		// Menus déroulants
-		defenseur = new JComboBox<String>(listeNoms) ;
+		defenseur = new JComboBox(listeNoms) ;
 		defenseur.setBounds(287, 22, 137, 20);
 		getContentPane().add(defenseur);
 		
-		attaquant = new JComboBox<String>(listeNoms) ;
+		attaquant = new JComboBox(listeNoms) ;
 		attaquant.setBounds(10, 22, 137, 20);
 		getContentPane().add(attaquant);
 		
@@ -66,12 +66,17 @@ public class FenetreCombat extends JFrame
 		texteDegat.setColumns(4);
 		
 		texteAtt = new JTextField() ;
-		texteAtt.setBounds(66, 200, 58, 20) ;
+		texteAtt.setBounds(49, 311, 58, 20) ;
 		contentPane.add(texteAtt) ;
 		
 		texteDef = new JTextField() ;
-		texteDef.setBounds(330, 200, 58, 20) ;
+		texteDef.setBounds(321, 311, 58, 20) ;
 		contentPane.add(texteDef) ;
+		
+		texteIP = new JTextField();
+		texteIP.setBounds(321, 53, 58, 20);
+		contentPane.add(texteIP);
+		texteIP.setColumns(10);
 		
 		// Etiquettes
 		JLabel etiquetteDegat = new JLabel("Dégats :");
@@ -79,12 +84,48 @@ public class FenetreCombat extends JFrame
 		contentPane.add(etiquetteDegat);
 		
 		JLabel etiquetteAttaque = new JLabel("Des :");
-		etiquetteAttaque.setBounds(10, 200, 46, 14);
+		etiquetteAttaque.setBounds(10, 311, 46, 14);
 		contentPane.add(etiquetteAttaque);
 		
 		JLabel etiquetteDefense = new JLabel("Des :");
-		etiquetteDefense.setBounds(287, 200, 46, 14);
+		etiquetteDefense.setBounds(287, 311, 46, 14);
 		contentPane.add(etiquetteDefense);
+		
+		JLabel etiquetteIp = new JLabel("IP :");
+		etiquetteIp.setBounds(287, 56, 46, 14);
+		contentPane.add(etiquetteIp);
+		
+		JLabel etiquetteTouche = new JLabel("Touche :");
+		etiquetteTouche.setBounds(158, 240, 50, 14);
+		contentPane.add(etiquetteTouche);
+		
+		JLabel affichageTouche = new JLabel("-");
+		affichageTouche.setBounds(220, 240, 46, 14);
+		contentPane.add(affichageTouche);
+		
+		JLabel etiquetteDegBilan = new JLabel("D\u00E9gats :");
+		etiquetteDegBilan.setBounds(158, 260, 46, 14);
+		contentPane.add(etiquetteDegBilan);
+		
+		JLabel affichageDegat = new JLabel("-");
+		affichageDegat.setBounds(220, 260, 46, 14);
+		contentPane.add(affichageDegat);
+		
+		JLabel etiquetteDefBilan = new JLabel("D\u00E9fense :");
+		etiquetteDefBilan.setBounds(158, 280, 58, 14);
+		contentPane.add(etiquetteDefBilan);
+		
+		JLabel affichageDefense = new JLabel("-");
+		affichageDefense.setBounds(220, 280, 46, 14);
+		contentPane.add(affichageDefense);
+		
+		JLabel etiquetteAttBilan = new JLabel("Attaque :");
+		etiquetteAttBilan.setBounds(158, 300, 58, 14);
+		contentPane.add(etiquetteAttBilan);
+		
+		JLabel affichageAttaque = new JLabel("-");
+		affichageAttaque.setBounds(220, 300, 46, 14);
+		contentPane.add(affichageAttaque);
 		
 		// Checkboxes
 		JCheckBox checkEffet = new JCheckBox("effet (sans dégat)");
@@ -104,7 +145,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(checkDeDos);
 		
 		JCheckBox checkProjectile = new JCheckBox("projectile");
-		checkProjectile.setBounds(10, 150, 97, 23);
+		checkProjectile.setBounds(10, 150, 78, 23);
 		contentPane.add(checkProjectile);
 		
 		JCheckBox checkBouclier = new JCheckBox("bouclier");
@@ -124,17 +165,28 @@ public class FenetreCombat extends JFrame
 		rondBoucl.setBounds(287, 130, 150, 23);
 		contentPane.add(rondBoucl);
 		
+		JRadioButton rondTir = new JRadioButton("tir\u00E9");
+		rondTir.setSelected(true);
+		rondTir.setEnabled(false);
+		rondTir.setBounds(85, 150, 109, 23);
+		contentPane.add(rondTir);
+		
+		JRadioButton rondLance = new JRadioButton("lanc\u00E9");
+		rondLance.setEnabled(false);
+		rondLance.setBounds(85, 170, 109, 23);
+		contentPane.add(rondLance);
+		
 		// boutons
 		lancerAtt = new JButton("Lancer") ;
-		lancerAtt.setBounds(10, 230, 137, 20) ;
+		lancerAtt.setBounds(10, 340, 137, 20) ;
 		contentPane.add(lancerAtt) ;
 		
 		lancerDef = new JButton("Lancer") ;
-		lancerDef.setBounds(287, 230, 137, 20) ;
+		lancerDef.setBounds(287, 340, 137, 20) ;
 		contentPane.add(lancerDef) ;
 		
 		fightBouton = new JButton("Fight!") ;
-		fightBouton.setBounds((10 + 287)/2 + 10, 230, 120, 20);
+		fightBouton.setBounds(158, 340, 120, 20);
 		contentPane.add(fightBouton);
 		
 		// Definition des listeners
@@ -144,6 +196,7 @@ public class FenetreCombat extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				// gestion de l'unicite du type de defense
 				if (e.getSource() == rondBoucl)
 				{
 					rondEsquive.setSelected(false) ;
@@ -162,6 +215,32 @@ public class FenetreCombat extends JFrame
 					rondBoucl.setSelected(false) ;
 					rondParade.setSelected(true) ;
 				}
+				
+				// gestion du projectile
+				if (e.getSource() == checkProjectile)
+				{
+					if (checkProjectile.isSelected())
+					{
+						rondLance.setEnabled(true) ;
+						rondTir.setEnabled(true) ;
+					}
+					else
+					{
+						rondLance.setEnabled(false) ;
+						rondTir.setEnabled(false) ;
+					}
+				}
+				
+				if (e.getSource() == rondLance)
+				{
+					rondLance.setSelected(true) ;
+					rondTir.setSelected(false) ;
+				}
+				else if (e.getSource() == rondTir)
+				{
+					rondLance.setSelected(false) ;
+					rondTir.setSelected(true) ;
+				}
 			}
 		};
 		
@@ -175,7 +254,8 @@ public class FenetreCombat extends JFrame
 				if (e.getSource() == fightBouton)
 				{
 					int attaque = mainFenetre.getPersonnageParNom((String)attaquant.getSelectedItem()).getAttaque() ;
-					int defense = mainFenetre.getPersonnageParNom((String)defenseur.getSelectedItem()).getDefense() ; ;
+					int defense = mainFenetre.getPersonnageParNom((String)defenseur.getSelectedItem()).getDefense() ;
+					boolean maitriseDef = (defense >= 200) ;
 					int degat = 0 ;
 					int IP = 0 ;
 					int degatsAppliques = 0 ;
@@ -190,6 +270,9 @@ public class FenetreCombat extends JFrame
 					if (texteDegat.getText().length() != 0)
 						degat = Integer.parseInt(texteDegat.getText()) ;
 					
+					if (texteIP.getText().length() != 0)
+						IP = Integer.parseInt(texteIP.getText()) ;
+					
 					if (checkSurprise.isSelected())
 						defense += Valeurs.malusSurprise ;
 					
@@ -202,10 +285,57 @@ public class FenetreCombat extends JFrame
 							defense += Valeurs.malusDefDos ;
 					}
 					
-					// calculs des effets du combat
+					// cas d'attaque au projectile
+					if (checkProjectile.isSelected())
+					{
+						// cas d'un tir
+						if (rondTir.isSelected())
+						{
+							// defense avec une parade
+							if (rondParade.isSelected())
+							{
+								if (!maitriseDef && !checkBouclier.isSelected())
+									defense += Valeurs.paradeTir ;
+								else if (!maitriseDef && checkBouclier.isSelected())
+									defense += Valeurs.paradeTirBouclier ;
+								else if (maitriseDef && !checkBouclier.isSelected())
+									defense += Valeurs.paradeTirMaitre ;
+							}
+							// defense avec une esquive
+							else if (rondEsquive.isSelected())
+							{
+								if (!maitriseDef)
+									defense += Valeurs.esquiveTir ;
+							}	
+						}
+						// cas d'un lance
+						else
+						{
+							// defense avec une parade sans bouclier et sans maitrise
+							if (rondParade.isSelected() && !checkBouclier.isSelected() && !maitriseDef)
+							{
+								defense += Valeurs.paradeLance ;
+							}
+						}
+					}
+					
+					// --- calculs des effets du combat ---
 					touche = attaque > defense ;
 					degatsAppliques = ( (attaque-defense-20-IP*10)*degat )/100 ;
-					Debug.afficher(degatsAppliques);
+					
+					// --- affichages ---
+					if (touche)
+						affichageTouche.setText("oui") ;
+					else
+						affichageTouche.setText("non") ;
+					
+					if (!checkEffet.isSelected())
+						affichageDegat.setText(String.valueOf(degatsAppliques)) ;
+					else
+						affichageDegat.setText(String.valueOf(0)) ;
+					
+					affichageAttaque.setText(String.valueOf(attaque)) ;
+					affichageDefense.setText(String.valueOf(defense)) ;
 				}
 				else if (e.getSource() == lancerAtt)
 				{
@@ -218,9 +348,13 @@ public class FenetreCombat extends JFrame
 			}
 		};
 		
+		// ajouts des listeners en fin pour permettre la creation de tous les objets
 		rondEsquive.addActionListener(listenerRond);
 		rondParade.addActionListener(listenerRond);
 		rondBoucl.addActionListener(listenerRond);
+		checkProjectile.addActionListener(listenerRond);
+		rondLance.addActionListener(listenerRond) ;
+		rondTir.addActionListener(listenerRond) ;
 		fightBouton.addActionListener(listenerBoutons);
 		lancerAtt.addActionListener(listenerBoutons);
 		lancerDef.addActionListener(listenerBoutons);
