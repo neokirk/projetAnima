@@ -50,7 +50,7 @@ public class FenetreCombat extends JFrame
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
-		// Menus déroulants
+		// Menus deroulants
 		defenseur = new JComboBox(listeNoms) ;
 		defenseur.setBounds(287, 22, 137, 20);
 		getContentPane().add(defenseur);
@@ -80,7 +80,7 @@ public class FenetreCombat extends JFrame
 		
 		// Etiquettes
 		JLabel etiquetteDegat = new JLabel("D\u00E9gats :");
-		etiquetteDegat.setBounds(10, 56, 50, 14);
+		etiquetteDegat.setBounds(10, 56, 60, 14);
 		contentPane.add(etiquetteDegat);
 		
 		JLabel etiquetteAttaque = new JLabel("Des :");
@@ -128,8 +128,8 @@ public class FenetreCombat extends JFrame
 		contentPane.add(affichageAttaque);
 		
 		// Checkboxes
-		JCheckBox checkEffet = new JCheckBox("effet (sans dégat)");
-		checkEffet.setBounds(10, 70, 135, 23);
+		JCheckBox checkEffet = new JCheckBox("effet (sans d\u00E9gat)");
+		checkEffet.setBounds(10, 70, 155, 23);
 		contentPane.add(checkEffet);
 		
 		JCheckBox checkSurprise = new JCheckBox("surprise");
@@ -145,7 +145,7 @@ public class FenetreCombat extends JFrame
 		contentPane.add(checkDeDos);
 		
 		JCheckBox checkProjectile = new JCheckBox("projectile");
-		checkProjectile.setBounds(10, 150, 85, 23) ;
+		checkProjectile.setBounds(10, 150, 105, 23) ;
 		contentPane.add(checkProjectile);
 		
 		JCheckBox checkBouclier = new JCheckBox("bouclier");
@@ -168,12 +168,12 @@ public class FenetreCombat extends JFrame
 		JRadioButton rondTir = new JRadioButton("tir\u00E9");
 		rondTir.setSelected(true);
 		rondTir.setEnabled(false);
-		rondTir.setBounds(90, 150, 109, 23);
+		rondTir.setBounds(30, 170, 109, 23);
 		contentPane.add(rondTir);
 		
 		JRadioButton rondLance = new JRadioButton("lanc\u00E9");
 		rondLance.setEnabled(false);
-		rondLance.setBounds(90, 170, 109, 23);
+		rondLance.setBounds(30, 190, 109, 23);
 		contentPane.add(rondLance);
 		
 		// boutons
