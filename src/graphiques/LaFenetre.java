@@ -450,7 +450,7 @@ public class LaFenetre extends JFrame
 		boutonCombat.addActionListener(clickCombat) ;
 		getContentPane().add(boutonCombat) ;
 		
-		// ---------- �tiquettes (JLabel) ---------- //
+		// ---------- Etiquettes (JLabel) ---------- //
 		
 		JLabel etiquetteNom = new JLabel("Nom :");
 		etiquetteNom.setBounds(191, 9, 75, 26);
