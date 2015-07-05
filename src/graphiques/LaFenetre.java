@@ -22,10 +22,13 @@ import javax.swing.SwingConstants;
 import metaProjet.Debug;
 import animaJDR.Des;
 import animaJDR.GestionnairePersonnage;
+import animaJDR.ListeCompetences;
 import animaJDR.ListeResistances;
 import animaJDR.Personnage;
 import animaJDR.Resistances;
 import graphiques.Sauvegarde;
+
+import java.awt.Color;
 
 
 public class LaFenetre extends JFrame
@@ -51,15 +54,28 @@ public class LaFenetre extends JFrame
 	private JTextField texteRPsy ;
 	private JTextField texteRMys ;
 	
+	private JLabelButton etiquetteNiveau ;
+	private JLabelButton etiquetteInitiative ;
+	private JLabelButton etiquetteAttaque ;
+	private JLabelButton etiquetteDefense ;
+	private JLabelButton etiquetteObservation ;
+	private JLabelButton etiquetteRPhy ;
+	private JLabelButton etiquetteRMal ;
+	private JLabelButton etiquetteRPoi ;
+	private JLabelButton etiquetteRPsy ;
+	private JLabelButton etiquetteRMys ;
+	
 	private JCheckBox chckbxJetOuvert ;
+	private JCheckBox chckbxall ;
 	private JTextArea zoneConsole ;
-	private JComboBox<String> menuDeroulant ;
+	private JComboBox menuDeroulant ;
 	
 	private ActionListener clickBoutonD100 ;
 	private ActionListener clickBoutonAjout ;
 	private ActionListener clickBoutonSuppr ;
 	private ActionListener clickListe ;
 	private ActionListener clickCombat ;
+	private ActionListener clickComp ;
 	private KeyListener entrerCmd ;
 	
 	private GestionnairePersonnage listePerso ;
@@ -303,8 +319,9 @@ public class LaFenetre extends JFrame
 	 */
 	public LaFenetre()
 	{
-		setTitle("Anima v0.1");
-		setResizable(false);
+		getContentPane().setBackground(new Color(240, 255, 255));
+		setTitle("Anima v0.2");
+		setResizable(true);
 		getContentPane().setLayout(null);
 		
 		listePerso = null ;
@@ -361,7 +378,114 @@ public class LaFenetre extends JFrame
 				fenetreCombat.setVisible(true);
 			}
 		};
-
+		
+		clickComp = new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (e.getSource() == etiquetteNiveau)
+				{
+					//TODO : faire un jet de presence plutot qu'afficher une valeur fixe
+					ajouterTexteConsole(Commandes.genererAffichageConsole(
+							Commandes.introNiveau,
+							getNomListeSelection(),
+							25+5*getPersonnageParNom(getNomListeSelection()).getNiveau() )); 
+				}
+				else if (e.getSource() == etiquetteInitiative)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_init_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_init, LaFenetre.this)) ;
+					}
+				}
+				else if (e.getSource() == etiquetteAttaque)
+				{
+					ajouterTexteConsole(Commandes.genererAffichageConsole(
+							Commandes.introAtt,
+							getNomListeSelection(),
+							getPersonnageParNom(getNomListeSelection()).tirerCompetence(ListeCompetences.attaque)));
+				}
+				else if (e.getSource() == etiquetteDefense)
+				{
+					ajouterTexteConsole(Commandes.genererAffichageConsole(
+							Commandes.introDef,
+							getNomListeSelection(),
+							getPersonnageParNom(getNomListeSelection()).tirerCompetence(ListeCompetences.defense)));
+				}
+				else if (e.getSource() == etiquetteObservation)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_obs_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_obs, LaFenetre.this)) ;
+					}
+				}
+				else if (e.getSource() == etiquetteRPhy)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_phy_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_phy, LaFenetre.this)) ;
+					}
+				}
+				else if (e.getSource() == etiquetteRMal)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_mal_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_mal, LaFenetre.this)) ;
+					}
+				}
+				else if (e.getSource() == etiquetteRPoi)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_poi_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_poi, LaFenetre.this)) ;
+					}
+				}
+				else if (e.getSource() == etiquetteRPsy)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_psy_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_psy, LaFenetre.this)) ;
+					}
+				}
+				else if (e.getSource() == etiquetteRMys)
+				{
+					if (chckbxall.isSelected())
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_mys_all, LaFenetre.this)) ;
+					}
+					else
+					{
+						ajouterTexteConsole(Commandes.executerCommande(codesCommandes.lancer_res_mys, LaFenetre.this)) ;
+					}
+				}
+			}
+		};
+		
 		entrerCmd = new KeyListener()
 		{
 			@Override
@@ -369,7 +493,7 @@ public class LaFenetre extends JFrame
 			{
 				codesCommandes code ;
 
-				// si la touche "entr�e" est appuy�e
+				// si la touche "entree" est appuyee
 				if (e.getKeyCode() == KeyEvent.VK_ENTER)
 				{
 					code = Commandes.lireCommande(LaFenetre.this.zoneCommande.getText()) ;
@@ -393,7 +517,7 @@ public class LaFenetre extends JFrame
 		//getContentPane().add(zoneConsole) ;
 		
 		defileur = new JScrollPane() ;
-		defileur.setBounds(10, 284, 624, 147) ;
+		defileur.setBounds(10, 284, 624, 147) ; //height 147
 		defileur.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		getContentPane().add(defileur) ;
 		defileur.setViewportView(zoneConsole) ;
@@ -406,9 +530,17 @@ public class LaFenetre extends JFrame
 		// ---------- Autres ---------- //
 		
 		chckbxJetOuvert = new JCheckBox("jet ouvert");
+		chckbxJetOuvert.setBackground(new Color(240, 255, 255));
 		chckbxJetOuvert.setSelected(true);
-		chckbxJetOuvert.setBounds(80, 241, 97, 23);
+		chckbxJetOuvert.setBounds(80, 241, 81, 23);
 		getContentPane().add(chckbxJetOuvert);
+		
+		chckbxall = new JCheckBox("/all");
+		chckbxall.setBackground(new Color(240, 255, 255));
+		chckbxall.setSelected(true);
+		chckbxall.setBounds(420, 209, 46, 23);
+		getContentPane().add(chckbxall);
+		
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -456,43 +588,43 @@ public class LaFenetre extends JFrame
 		etiquetteNom.setBounds(191, 9, 75, 26);
 		getContentPane().add(etiquetteNom);
 		
-		JLabel etiquetteNiveau = new JLabel("Niveau :");
+		etiquetteNiveau = new JLabelButton("Niveau :",clickComp);
 		etiquetteNiveau.setBounds(191, 49, 75, 26);
 		getContentPane().add(etiquetteNiveau);
 		
-		JLabel etiquetteInitiative = new JLabel("Initiative :");
+		etiquetteInitiative = new JLabelButton("Initiative :",clickComp);
 		etiquetteInitiative.setBounds(191, 89, 75, 26);
 		getContentPane().add(etiquetteInitiative);
 		
-		JLabel etiquetteAttaque = new JLabel("Attaque :");
+		etiquetteAttaque = new JLabelButton("Attaque :",clickComp);
 		etiquetteAttaque.setBounds(191, 129, 75, 26);
 		getContentPane().add(etiquetteAttaque);
 		
-		JLabel etiquetteDefense = new JLabel("Defense :");
+		etiquetteDefense = new JLabelButton("Defense :",clickComp);
 		etiquetteDefense.setBounds(191, 169, 75, 26);
 		getContentPane().add(etiquetteDefense);
 		
-		JLabel etiquetteObservation = new JLabel("Observation :");
+		etiquetteObservation = new JLabelButton("Observation :",clickComp);
 		etiquetteObservation.setBounds(191, 209, 75, 26);
 		getContentPane().add(etiquetteObservation);
 		
-		JLabel etiquetteRPhy = new JLabel("Res. Phy :");
+		etiquetteRPhy = new JLabelButton("Res. Phy :",clickComp);
 		etiquetteRPhy.setBounds(420, 9, 75, 26);
 		getContentPane().add(etiquetteRPhy);
 		
-		JLabel etiquetteRMal = new JLabel("Res. Mal :");
+		etiquetteRMal = new JLabelButton("Res. Mal :",clickComp);
 		etiquetteRMal.setBounds(420, 49, 75, 26);
 		getContentPane().add(etiquetteRMal);
 		
-		JLabel etiquetteRPoi = new JLabel("Res. Poi :");
+		etiquetteRPoi = new JLabelButton("Res. Poi :",clickComp);
 		etiquetteRPoi.setBounds(420, 89, 75, 26);
 		getContentPane().add(etiquetteRPoi);
 		
-		JLabel etiquetteRPsy = new JLabel("Res. Psy :");
+		etiquetteRPsy = new JLabelButton("Res. Psy :",clickComp);
 		etiquetteRPsy.setBounds(420, 129, 75, 26);
 		getContentPane().add(etiquetteRPsy);
 		
-		JLabel etiquetteRMys = new JLabel("Res. Mys :");
+		etiquetteRMys = new JLabelButton("Res. Mys :",clickComp);
 		etiquetteRMys.setBounds(420, 169, 75, 26);
 		getContentPane().add(etiquetteRMys);
 		
@@ -546,10 +678,11 @@ public class LaFenetre extends JFrame
 		// ---------- liste ---------- //
 		
 		String[] menuDeroulantInit = {init_liste_value} ;
-		menuDeroulant = new JComboBox<String>(menuDeroulantInit);
+		menuDeroulant = new JComboBox(menuDeroulantInit);
 		menuDeroulant.setBounds(10, 92, 137, 20);
 		menuDeroulant.addActionListener(clickListe) ;
 		getContentPane().add(menuDeroulant);
+		
 		ajouterListeNomMenuDeroulant(getListeNomSauve()) ;
 	}
 }

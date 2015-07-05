@@ -9,6 +9,34 @@ import Magie.voie;
 
 public class Commandes
 {
+	public static final String introNiveau = "Présence de" ;
+	public static final String introInit = "Initiative de" ;
+	public static final String introAtt = "Attaque de" ;
+	public static final String introDef = "Defense de" ;
+	public static final String introObs = "Observation de" ;
+	public static final String introRPhy = "Resistance Physique de" ;
+	public static final String introRMal = "Resistance Maladie de" ;
+	public static final String introRPoi = "Resistance Poison de" ;
+	public static final String introRPsy = "Resistance Psy de" ;
+	public static final String introRMys = "Resistance Mystique de" ;
+
+	
+	public static String genererAffichageConsole(String intro, String nom, int valeur, String complement)
+	{
+		String retour ;
+		retour = intro + " " + nom + " : " + String.valueOf(valeur) + " " + complement ;
+		
+		return retour ;
+	}
+
+	public static String genererAffichageConsole(String intro, String nom, int valeur)
+	{
+		String retour ;
+		retour = intro + " " + nom  + " : " + String.valueOf(valeur) + "\n" ;
+		
+		return retour ;
+	}
+	
 	/*
 	 * Methode qui parse un String et qui retroune un code associe a la commande lue
 	 */
@@ -64,7 +92,7 @@ public class Commandes
 				{
 					retour = codesCommandes.aide ;
 				}
-				else if (cmd.contains("mD"))
+				else if (cmd.contains("md"))
 				{
 					retour = codesCommandes.magieDebug ;
 				}
@@ -96,17 +124,15 @@ public class Commandes
 			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
 			{
 				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
-				afficher += "Init. de " + personnage.getNom() + " = " ;
-				afficher += String.valueOf(personnage.tirerInitiative()) ;
+				afficher += genererAffichageConsole(introInit, personnage.getNom(), personnage.tirerInitiative());
 			}
 			break;
 
 		case lancer_init_all:
 			for (int i=0; i<nombrePerso; i++)
 			{
-				afficher += "Init. de " + listeNom[i] + " = " ;
 				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
-				afficher += String.valueOf(personnage.tirerInitiative()) + "\n" ;
+				afficher += genererAffichageConsole(introInit, personnage.getNom(), personnage.tirerInitiative());
 			}
 			break;
 			
@@ -114,17 +140,15 @@ public class Commandes
 			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
 			{
 				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
-				afficher += "Obs. de " + personnage.getNom() + " = " ;
-				afficher += String.valueOf(personnage.tirerCompetence(ListeCompetences.observation)) ;
+				afficher += genererAffichageConsole(introObs, personnage.getNom(), personnage.tirerCompetence(ListeCompetences.observation));
 			}
 			break;
 			
 		case lancer_obs_all:
 			for (int i=0; i<nombrePerso; i++)
 			{
-				afficher += "Obs. de " + listeNom[i] + " = " ;
 				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
-				afficher += String.valueOf(personnage.tirerCompetence(ListeCompetences.observation)) + "\n" ;
+				afficher += genererAffichageConsole(introObs, personnage.getNom(), personnage.tirerCompetence(ListeCompetences.observation));
 			}
 			break;
 			
@@ -132,26 +156,85 @@ public class Commandes
 			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
 			{
 				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
-				afficher += "Res. myst de " + personnage.getNom() + " = " ;
-				afficher += String.valueOf(personnage.tirerResistance(ListeResistances.ResMys)) ;
+				afficher += genererAffichageConsole(introRMys, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResMys));
 			}
 			break;
 			
 		case lancer_res_mys_all:
 			for (int i=0; i<nombrePerso; i++)
 			{
-				afficher += "Res. myst de " + listeNom[i] + " = " ;
 				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
-				afficher += String.valueOf(personnage.tirerResistance(ListeResistances.ResMys)) + "\n" ;
+				afficher += genererAffichageConsole(introRMys, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResMys));
+			}
+			break;
+			
+		case lancer_res_psy:
+			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
+			{
+				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
+				afficher += genererAffichageConsole(introRPsy, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResPsy));
+			}
+			break;
+			
+		case lancer_res_psy_all:
+			for (int i=0; i<nombrePerso; i++)
+			{
+				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
+				afficher += genererAffichageConsole(introRPsy, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResPsy));
+			}
+			break;
+			
+		case lancer_res_phy:
+			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
+			{
+				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
+				afficher += genererAffichageConsole(introRPhy, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResPhy));
+			}
+			break;
+			
+		case lancer_res_phy_all:
+			for (int i=0; i<nombrePerso; i++)
+			{
+				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
+				afficher += genererAffichageConsole(introRPhy, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResPhy));
+			}
+			break;
+			
+		case lancer_res_poi:
+			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
+			{
+				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
+				afficher += genererAffichageConsole(introRPoi, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResPoi));
+			}
+			break;
+			
+		case lancer_res_poi_all:
+			for (int i=0; i<nombrePerso; i++)
+			{
+				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
+				afficher += genererAffichageConsole(introRPoi, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResPoi));
+			}
+			break;
+			
+		case lancer_res_mal:
+			if (fenetre.getNomListeSelection() != fenetre.init_liste_value)
+			{
+				personnage = fenetre.getPersonnageParNom(fenetre.getNomListeSelection()) ;
+				afficher += genererAffichageConsole(introRMal, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResMal));
+			}
+			break;
+			
+		case lancer_res_mal_all:
+			for (int i=0; i<nombrePerso; i++)
+			{
+				personnage = fenetre.getPersonnageParNom(listeNom[i]) ;
+				afficher += genererAffichageConsole(introRMal, personnage.getNom(), personnage.tirerResistance(ListeResistances.ResMal));
 			}
 			break;
 			
 		case magieDebug:
-			for (int i=0; i<nombrePerso; i++)
-			{
-				voie oo = new voie(10) ;
-				afficher += oo.getNom() + "\n" ;
-			}
+			voie oo = new voie(10) ;
+			afficher += oo.getNom() + "\n" ;
 			break;
 			
 		default:
