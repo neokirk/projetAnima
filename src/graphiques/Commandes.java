@@ -103,7 +103,7 @@ public class Commandes
 	}
 	
 	/*
-	 * 
+	 * Affiche dans la console d'une fenêtre le retour d'une commande de lal iste "codesCommandes" 
 	 */
 	static public String executerCommande(codesCommandes code, LaFenetre fenetre)
 	{
