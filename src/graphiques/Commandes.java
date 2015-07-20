@@ -3,6 +3,7 @@ package graphiques;
 import animaJDR.ListeResistances;
 import animaJDR.Personnage;
 import animaJDR.ListeCompetences;
+import animaJDR.ResultatDes;
 import graphiques.codesCommandes;
 import metaProjet.Debug ;
 import Magie.voie;
@@ -29,10 +30,10 @@ public class Commandes
 		return retour ;
 	}
 
-	public static String genererAffichageConsole(String intro, String nom, int valeur)
+	public static String genererAffichageConsole(String intro, String nom, ResultatDes valeur)
 	{
 		String retour ;
-		retour = intro + " " + nom  + " : " + String.valueOf(valeur) + "\n" ;
+		retour = intro + " " + nom  + " : " + String.valueOf(valeur.getResultat()) + " (" + String.valueOf(valeur.getCritique()) + ")" + "\n" ;
 		
 		return retour ;
 	}
