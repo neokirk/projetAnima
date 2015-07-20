@@ -159,29 +159,30 @@ public class Personnage implements Serializable
 	/*
 	 * 
 	 */
-	public int tirerInitiative()
+	public ResultatDes tirerInitiative()
 	{
 		return Des.lancerDesInitiative(true, this.getInitiative()) ;
 	}
 	
 	/*
-	 * 
+	 * Methode de lancement de des pour une competence parmi :
+	 * Attaque, defense, observation
 	 */
-	public int tirerCompetence(ListeCompetences comp)
+	public ResultatDes tirerCompetence(ListeCompetences comp)
 	{
-		int retour = Des.lancerDesClassique(true) ;
+		ResultatDes retour = Des.lancerDesClassique(true) ;
 		
 		if (comp == ListeCompetences.observation)
 		{
-			retour += observation ;
+			retour.ajouterValeur(observation);
 		}
 		else if (comp == ListeCompetences.attaque)
 		{
-			retour += attaque ;
+			retour.ajouterValeur(attaque) ;
 		}
 		else if (comp == ListeCompetences.defense)
 		{
-			retour += defense ;
+			retour.ajouterValeur(defense) ;
 		}
 		
 		return retour ;
@@ -190,8 +191,18 @@ public class Personnage implements Serializable
 	/*
 	 * 
 	 */
-	public int tirerResistance(ListeResistances res)
+	public ResultatDes tirerResistance(ListeResistances res)
 	{
-		return Des.d100() + this.getResistance(res) ;
+		int jet = Des.d100() ;
+		ResultatDes retour ;
+		
+		if (jet == 1)
+			retour = new ResultatDes(jet+this.getResistance(res), -1) ;
+		else if (jet == 100)
+			retour = new ResultatDes(jet+this.getResistance(res), 1) ;
+		else
+			retour = new ResultatDes(jet+this.getResistance(res), 0) ;
+		
+		return retour ;
 	}
 }

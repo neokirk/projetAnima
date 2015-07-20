@@ -2,8 +2,8 @@ package animaJDR;
 
 public class ResultatDes
 {
-	private int resultat ;		// donne le résultat du jet de dés
-	private int critique ;		// indique le nombre de succés ou d'échec
+	private int resultat ;		// donne le resultat du jet de des
+	private int critique ;		// indique le nombre de succes ou d'echec
 	
 	/*
 	 * Constructeur
@@ -26,5 +26,10 @@ public class ResultatDes
 	public int getCritique()
 	{
 		return this.critique ;
+	}
+	
+	public void ajouterValeur(int valeur)
+	{
+		this.resultat += valeur ;
 	}
 }

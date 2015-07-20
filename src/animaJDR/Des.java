@@ -18,9 +18,10 @@ public class Des
 		return (int)(Math.random() * 10) + 1 ;
 	}
 	
-	public static int lancerDesClassique(boolean ouvert)
+	public static ResultatDes lancerDesClassique(boolean ouvert)
 	{
 		int resultat ;
+		int nombreSucces = 0 ;
 		
 		// Lance du des
 		resultat = d100() ;
@@ -29,6 +30,7 @@ public class Des
 		if (resultat <= 3)
 		{
 			resultat = - d100() ;
+			nombreSucces-- ;
 		}
 		
 		// Reussite critique
@@ -41,26 +43,31 @@ public class Des
 				jet = d100() ;
 				seuil++ ;
 				resultat += jet ;
+				nombreSucces++ ;
 			}
 		}
 		
-		return resultat ;
+		return new ResultatDes(resultat, nombreSucces) ;
 	}
 	
 	/*
 	 * Lance un jet de des pour un test d'initiative
 	 */
-	public static int lancerDesInitiative(boolean ouvert, int base)
+	public static ResultatDes lancerDesInitiative(boolean ouvert, int base)
 	{
 		int resultat = d100() ;
+		int succes = 0 ;
 		
 		// Echec critique
+		if (resultat <= 3)
+			succes-- ;
 		if (resultat == 1)
 			resultat = Valeurs.malusInit01 + base ;
 		else if (resultat == 2)
 			resultat = Valeurs.malusInit02 + base ;
 		else if (resultat == 3)
 			resultat = Valeurs.malusInit03 + base ;
+			
 
 		// Reussite critique
 		if (ouvert == true)
@@ -74,10 +81,11 @@ public class Des
 				jet = d100() ;
 				seuil++ ;
 				resultat += jet ;
+				succes++ ;
 			}
 		}
 
-		return resultat ;
+		return new ResultatDes(resultat, succes) ;
 	}
 	
 }
