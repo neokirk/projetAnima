@@ -1,6 +1,7 @@
 package graphiques;
 
 import java.awt.EventQueue;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -65,6 +66,8 @@ public class LaFenetre extends JFrame
 	private JLabelButton etiquetteRPsy ;
 	private JLabelButton etiquetteRMys ;
 	
+	private JButton boutonTaille ;
+	
 	private JCheckBox chckbxJetOuvert ;
 	private JCheckBox chckbxall ;
 	private JTextArea zoneConsole ;
@@ -77,6 +80,7 @@ public class LaFenetre extends JFrame
 	private ActionListener clickCombat ;
 	private ActionListener clickComp ;
 	private KeyListener entrerCmd ;
+	private ActionListener clickTaille ;
 	
 	private GestionnairePersonnage listePerso ;
 
@@ -84,6 +88,9 @@ public class LaFenetre extends JFrame
 	private JScrollPane defileur ;
 	
 	public final String init_liste_value = "Nouv. Perso." ;
+	
+	private final Rectangle tailleConsoleBase = new Rectangle(10, 284, 624, 147) ;
+	private final Rectangle tailleConsoleEtendue = new Rectangle(10, 10, 624, 284-10+147) ;
 	
 	////////////////////////////////////////////////
 	//////////////// METHODES //////////////////////
@@ -102,7 +109,7 @@ public class LaFenetre extends JFrame
 				try
 				{
 					LaFenetre frame = new LaFenetre();
-					frame.setSize(650, 510);
+					frame.setSize(660, 520);
 					frame.setVisible(true);
 				}
 				catch (Exception e)
@@ -387,10 +394,10 @@ public class LaFenetre extends JFrame
 				if (e.getSource() == etiquetteNiveau)
 				{
 					//TODO : faire un jet de presence plutot qu'afficher une valeur fixe
-					ajouterTexteConsole(Commandes.genererAffichageConsole(
+					/*ajouterTexteConsole(Commandes.genererAffichageConsole(
 							Commandes.introNiveau,
 							getNomListeSelection(),
-							25+5*getPersonnageParNom(getNomListeSelection()).getNiveau() )); 
+							25+5*getPersonnageParNom(getNomListeSelection()).getNiveau() )); */
 				}
 				else if (e.getSource() == etiquetteInitiative)
 				{
@@ -486,6 +493,24 @@ public class LaFenetre extends JFrame
 			}
 		};
 		
+		clickTaille = new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				if (defileur.getBounds().equals(tailleConsoleBase))
+				{
+					defileur.setBounds(tailleConsoleEtendue) ;
+					boutonTaille.setLocation(boutonTaille.getX(), 0);
+				}
+				else
+				{
+					defileur.setBounds(tailleConsoleBase) ;
+					boutonTaille.setLocation(boutonTaille.getX(), 268);
+				}
+			}
+		};
+		
 		entrerCmd = new KeyListener()
 		{
 			@Override
@@ -513,11 +538,9 @@ public class LaFenetre extends JFrame
 		zoneConsole = new JTextArea() ;
 		zoneConsole.setEditable(false);
 		zoneConsole.setLineWrap(true) ;
-		//zoneConsole.setBounds(10, 284, 624, 147) ;
-		//getContentPane().add(zoneConsole) ;
 		
 		defileur = new JScrollPane() ;
-		defileur.setBounds(10, 284, 624, 147) ; //height 147
+		defileur.setBounds(tailleConsoleBase) ;
 		defileur.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		getContentPane().add(defileur) ;
 		defileur.setViewportView(zoneConsole) ;
@@ -581,6 +604,11 @@ public class LaFenetre extends JFrame
 		boutonCombat.setBounds(10, 153, 137, 47) ;
 		boutonCombat.addActionListener(clickCombat) ;
 		getContentPane().add(boutonCombat) ;
+		
+		boutonTaille = new JButton("") ;
+		boutonTaille.setBounds(292, 268, 60, 10) ;
+		boutonTaille.addActionListener(clickTaille) ;
+		getContentPane().add(boutonTaille) ;
 		
 		// ---------- Etiquettes (JLabel) ---------- //
 		
