@@ -177,7 +177,7 @@ public class sort
 
 	public void setCout(int[] cout) 
 	{
-		if (cout.length == 40)
+		if (cout.length == 4)
 			this.cout = cout;
 		else
 			this.cout = new int[]{-1,-1,-1,-1};
