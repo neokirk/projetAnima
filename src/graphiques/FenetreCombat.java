@@ -339,11 +339,11 @@ public class FenetreCombat extends JFrame
 				}
 				else if (e.getSource() == lancerAtt)
 				{
-					texteAtt.setText( String.valueOf(Des.lancerDesClassique(true)) ) ;
+					texteAtt.setText( String.valueOf(Des.lancerDesClassique(true).getResultat()) ) ;
 				}
 				else if (e.getSource() == lancerDef)
 				{
-					texteDef.setText( String.valueOf(Des.lancerDesClassique(true)) ) ;
+					texteDef.setText( String.valueOf(Des.lancerDesClassique(true).getResultat()) ) ;
 				}
 			}
 		};
@@ -358,5 +358,6 @@ public class FenetreCombat extends JFrame
 		fightBouton.addActionListener(listenerBoutons);
 		lancerAtt.addActionListener(listenerBoutons);
 		lancerDef.addActionListener(listenerBoutons);
+
 	}
 }
