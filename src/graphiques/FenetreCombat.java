@@ -40,11 +40,11 @@ public class FenetreCombat extends JFrame
 	public FenetreCombat(LaFenetre mainFenetre)
 	{
 		String[] listeNoms = mainFenetre.getListeNomSauve() ;
-		setTitle("Anima v0.1 - fenetre de combat");
+		setTitle("Anima v0.5 - fenetre de combat");
 		setResizable(false);
 		
 		// Fenetre
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 450, 430);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -66,11 +66,11 @@ public class FenetreCombat extends JFrame
 		texteDegat.setColumns(4);
 		
 		texteAtt = new JTextField() ;
-		texteAtt.setBounds(49, 311, 58, 20) ;
+		texteAtt.setBounds(49, 342, 58, 20) ;
 		contentPane.add(texteAtt) ;
 		
 		texteDef = new JTextField() ;
-		texteDef.setBounds(321, 311, 58, 20) ;
+		texteDef.setBounds(321, 342, 58, 20) ;
 		contentPane.add(texteDef) ;
 		
 		texteIP = new JTextField();
@@ -84,11 +84,11 @@ public class FenetreCombat extends JFrame
 		contentPane.add(etiquetteDegat);
 		
 		JLabel etiquetteAttaque = new JLabel("Des :");
-		etiquetteAttaque.setBounds(10, 311, 46, 14);
+		etiquetteAttaque.setBounds(10, 342, 46, 14);
 		contentPane.add(etiquetteAttaque);
 		
 		JLabel etiquetteDefense = new JLabel("Des :");
-		etiquetteDefense.setBounds(287, 311, 46, 14);
+		etiquetteDefense.setBounds(287, 342, 46, 14);
 		contentPane.add(etiquetteDefense);
 		
 		JLabel etiquetteIp = new JLabel("IP :");
@@ -96,36 +96,44 @@ public class FenetreCombat extends JFrame
 		contentPane.add(etiquetteIp);
 		
 		JLabel etiquetteTouche = new JLabel("Touche :");
-		etiquetteTouche.setBounds(158, 240, 60, 14);
+		etiquetteTouche.setBounds(158, 240, 70, 14);
 		contentPane.add(etiquetteTouche);
 		
 		JLabel affichageTouche = new JLabel("-");
-		affichageTouche.setBounds(220, 240, 46, 14);
+		affichageTouche.setBounds(230, 240, 46, 14);
 		contentPane.add(affichageTouche);
 		
 		JLabel etiquetteDegBilan = new JLabel("D\u00E9gats :");
-		etiquetteDegBilan.setBounds(158, 260, 60, 14);
+		etiquetteDegBilan.setBounds(158, 260, 70, 14);
 		contentPane.add(etiquetteDegBilan);
 		
 		JLabel affichageDegat = new JLabel("-");
-		affichageDegat.setBounds(220, 260, 46, 14);
+		affichageDegat.setBounds(230, 260, 46, 14);
 		contentPane.add(affichageDegat);
 		
 		JLabel etiquetteDefBilan = new JLabel("D\u00E9fense :");
-		etiquetteDefBilan.setBounds(158, 280, 60, 14);
+		etiquetteDefBilan.setBounds(158, 280, 70, 14);
 		contentPane.add(etiquetteDefBilan);
 		
 		JLabel affichageDefense = new JLabel("-");
-		affichageDefense.setBounds(220, 280, 46, 14);
+		affichageDefense.setBounds(230, 280, 46, 14);
 		contentPane.add(affichageDefense);
 		
 		JLabel etiquetteAttBilan = new JLabel("Attaque :");
-		etiquetteAttBilan.setBounds(158, 300, 60, 14);
+		etiquetteAttBilan.setBounds(158, 300, 70, 14);
 		contentPane.add(etiquetteAttBilan);
 		
 		JLabel affichageAttaque = new JLabel("-");
-		affichageAttaque.setBounds(220, 300, 46, 14);
+		affichageAttaque.setBounds(230, 300, 46, 14);
 		contentPane.add(affichageAttaque);
+		
+		JLabel etiquetteContreAtt = new JLabel("Contre Att. :");
+		etiquetteContreAtt.setBounds(158, 320, 70, 14);
+		contentPane.add(etiquetteContreAtt);
+		
+		JLabel affichageContreAtt = new JLabel("-");
+		affichageContreAtt.setBounds(230, 320, 46, 14);
+		contentPane.add(affichageContreAtt);
 		
 		// Checkboxes
 		JCheckBox checkEffet = new JCheckBox("effet (sans d\u00E9gat)");
@@ -178,15 +186,15 @@ public class FenetreCombat extends JFrame
 		
 		// boutons
 		lancerAtt = new JButton("Lancer") ;
-		lancerAtt.setBounds(10, 340, 137, 20) ;
+		lancerAtt.setBounds(10, 371, 137, 20) ;
 		contentPane.add(lancerAtt) ;
 		
 		lancerDef = new JButton("Lancer") ;
-		lancerDef.setBounds(287, 340, 137, 20) ;
+		lancerDef.setBounds(287, 371, 137, 20) ;
 		contentPane.add(lancerDef) ;
 		
 		fightBouton = new JButton("Fight!") ;
-		fightBouton.setBounds(158, 340, 120, 20);
+		fightBouton.setBounds(158, 371, 120, 20);
 		contentPane.add(fightBouton);
 		
 		// Definition des listeners
@@ -259,6 +267,7 @@ public class FenetreCombat extends JFrame
 					int degat = 0 ;
 					int IP = 0 ;
 					int degatsAppliques = 0 ;
+					int contreAttaque = 0 ;
 					boolean touche = false ;
 					
 					if (texteAtt.getText().length() != 0)
@@ -320,8 +329,11 @@ public class FenetreCombat extends JFrame
 					}
 					
 					// --- calculs des effets du combat ---
-					touche = attaque > defense ;
+					touche = attaque > defense + 20 ;
 					degatsAppliques = ( (attaque-defense-20-IP*10)*degat )/100 ;
+					contreAttaque = defense - attaque - 20 ;
+					if (contreAttaque < 0)
+						contreAttaque = 0 ;
 					
 					// --- affichages ---
 					if (touche)
@@ -336,6 +348,7 @@ public class FenetreCombat extends JFrame
 					
 					affichageAttaque.setText(String.valueOf(attaque)) ;
 					affichageDefense.setText(String.valueOf(defense)) ;
+					affichageContreAtt.setText(String.valueOf(contreAttaque)) ;
 				}
 				else if (e.getSource() == lancerAtt)
 				{
