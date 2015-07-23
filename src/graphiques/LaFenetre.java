@@ -327,7 +327,7 @@ public class LaFenetre extends JFrame
 	public LaFenetre()
 	{
 		getContentPane().setBackground(new Color(240, 255, 255));
-		setTitle("Anima v0.2");
+		setTitle("Anima v0.5");
 		setResizable(true);
 		getContentPane().setLayout(null);
 		
@@ -344,7 +344,7 @@ public class LaFenetre extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				boolean ouvert = LaFenetre.this.getJetOuvert() ;
-				LaFenetre.this.ajouterTexteConsole("D100 : " + String.valueOf(Des.lancerDesClassique(ouvert)));
+				LaFenetre.this.ajouterTexteConsole("D100 : " + String.valueOf(Des.lancerDesClassique(ouvert).getResultat()));
 			}
 		};
 
@@ -589,7 +589,7 @@ public class LaFenetre extends JFrame
 			
 			public void actionPerformed(ActionEvent arg0)
 			{
-				zoneConsole.setText(zoneConsole.getText() + "D10 : " + String.valueOf(Des.d10()) + "\n" );
+				zoneConsole.setText(zoneConsole.getText() + "D10 : " + String.valueOf(Des.d10()) + "\n" ) ;
 			}
 		});
 		boutonD10.setBounds(10, 211, 60, 23);
